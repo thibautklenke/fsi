@@ -94,6 +94,8 @@
 #include <trilinos_precondtion_frosch.h>
 #include <parameter_reader.h>
 
+#include <Teuchos_ParameterList.hpp>
+
 // C++
 #include <fstream>
 #include <sstream>
@@ -2373,6 +2375,16 @@ FSI_ALE_Problem<dim>::solve ()
 
   pcout << "Solved in " << solver_control.last_step() << std::endl;
 
+
+  // Log iterations to .csv file
+  std::ofstream log_file;
+  log_file.open("timing_log_fsi.csv", std::ios::app);
+
+  Teuchos::ParameterList & sublist = prm.get_parameter_list()->sublist("Preconditioner List").sublist("GeometricOverlappingOperator").sublist("Update Scalar Multipliers");
+
+  log_file << sublist.get<double>("Alpha") << "," << sublist.get<double>("Beta") << "," << solver_control.last_step() << std::endl;
+
+
   // distribute the solution vector
   newton_update.compress(VectorOperation::add);
   constraints.distribute(newton_update);
@@ -3258,6 +3270,11 @@ void FSI_ALE_Problem<dim>::run ()
   // can be handled by the ParameterHandler object (see step-19)
   set_runtime_parameters ();
   setup_system();
+
+  // Create .csv output file
+  std::ofstream log_file;
+  log_file.open("timing_log_fsi.csv");
+  log_file << "Alpha,Beta,Iterations" << std::endl;
 
   pcout << "\n==============================" 
 	    << "====================================="  << std::endl;
