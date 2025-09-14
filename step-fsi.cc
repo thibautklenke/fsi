@@ -3233,7 +3233,7 @@ void FSI_ALE_Problem<dim>::refine_mesh()
   triangulation.execute_coarsening_and_refinement ();
   setup_system ();
   
-  solution_transfer.interpolate(solution); 
+  solution_transfer.interpolate(tmp_solution, solution); 
 
 }
 

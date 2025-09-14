@@ -48,6 +48,10 @@
         <Parameter name="SolverType"                    type="string" value="Amesos2"/>
         <Parameter name="Solver"                        type="string" value="UMFPACK"/>
       </ParameterList>
+      <ParameterList name="Update Scalar Multipliers">
+        <Parameter name="Alpha" type="double" value="1.0" />
+        <Parameter name="Beta" type="double" value="1.0" />
+      </ParameterList>
     </ParameterList>
   </ParameterList>
 </ParameterList>

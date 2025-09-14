@@ -33,6 +33,8 @@
 #include <Xpetra_CrsGraphFactory.hpp>
 #include <trilinos_precondtion_frosch.h>
 
+#include <FROSch_GeometricOverlappingOperator_def.hpp>
+
 #include <algorithm>
 
 DEAL_II_NAMESPACE_OPEN
